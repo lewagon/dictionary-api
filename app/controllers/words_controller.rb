@@ -1,17 +1,21 @@
-class WordsController < ApplicationController
+class WordsController < ActionController::API
   def home
-    render json: { message: 'welcome' }
+    render json: { message: 'welcome', endpoints: ['https://wagon-dictionary.herokuapp.com/{word}'] }
   end
 
   def query
     word = words.bsearch { |w| params[:word] <=> w }
     if word
-      response = { word: word, length: word.length }
+      response = { found: true, word: word, length: word.length }
       render json: response, status: 200
     else
-      response = { error: 'not found' }
+      response = { found: false, error: 'word not found' }
       render json: response, status: 404
     end
+  end
+
+  def redirect
+    redirect_to root_path
   end
 
   private
