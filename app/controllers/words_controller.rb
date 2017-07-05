@@ -4,9 +4,14 @@ class WordsController < ApplicationController
   end
 
   def query
-    @word = words.bsearch { |w| params[:word] <=> w }
-    response = @word ? { word: @word, length: @word.length } : { error: 'not found' }
-    render json: response
+    word = words.bsearch { |w| params[:word] <=> w }
+    if word
+      response = { word: word, length: word.length }
+      render json: response, status: 200
+    else
+      response = { error: 'not found' }
+      render json: response, status: 404
+    end
   end
 
   private
