@@ -10,7 +10,7 @@ class WordsController < ActionController::API
       render json: response, status: 200
     else
       response = { found: false, error: 'word not found' }
-      render json: response, status: 404
+      render json: response, status: 200
     end
   end
 
