@@ -7,11 +7,10 @@ class WordsController < ActionController::API
     word = words.bsearch { |w| params[:word] <=> w }
     if word
       response = { found: true, word: word, length: word.length }
-      render json: response, status: 200
     else
       response = { found: false, error: 'word not found' }
-      render json: response, status: 200
     end
+    render json: response
   end
 
   def redirect
