@@ -1,7 +1,13 @@
 class WordsController < ActionController::API
+  before_action :set_counter, :increment_hits
+
   def home
-    counter = $store.transaction { $store[:counter] }
-    render json: { message: 'welcome', endpoints: ['https://wagon-dictionary.herokuapp.com/{word}'], counter: counter }
+    render json: {
+      message: 'welcome',
+      endpoints: ['https://wagon-dictionary.herokuapp.com/{word}'],
+      api_hits: @counter.hits,
+      words_found: @counter.found
+    }
   end
 
   def query
@@ -21,11 +27,16 @@ class WordsController < ActionController::API
 
   private
 
+  def set_counter
+    @counter = Counter.find(1)
+  end
+
+  def increment_hits
+    @counter.increment!(:hits)
+  end
+
   def add_to_counter
-    $store.transaction do
-      $store[:counter] += 1
-      $store.commit
-    end
+    @counter.increment!(:found)
   end
 
   def words
