@@ -1,5 +1,5 @@
 class WordsController < ActionController::API
-  before_action :set_counter
+  before_action :set_counter, :increment_hits
 
   def home
     render json: {
@@ -18,7 +18,6 @@ class WordsController < ActionController::API
     else
       response = { found: false, error: 'word not found' }
     end
-    increment_hits
     render json: response
   end
 
