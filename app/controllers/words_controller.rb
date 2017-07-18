@@ -11,7 +11,8 @@ class WordsController < ActionController::API
   end
 
   def query
-    word = words.bsearch { |w| params[:word] <=> w }
+    query_word = params[:word].downcase
+    word = words.bsearch { |w| query_word <=> w }
     if word
       response = { found: true, word: word, length: word.length }
       add_to_counter
