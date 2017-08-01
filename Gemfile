@@ -1,8 +1,9 @@
 ruby '2.4.1'
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'pg'
 gem 'puma'
+gem 'rails'
 
 group :development, :test do
   gem 'listen'
