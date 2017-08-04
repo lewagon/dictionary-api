@@ -8,8 +8,9 @@ class WordsController < ActionController::API
         'https://wagon-dictionary.herokuapp.com/:word',
         'https://wagon-dictionary.herokuapp.com/autocomplete/:stem'
       ],
-      api_hits: @counter.hits,
-      words_found: @counter.found
+      total_api_hits: @counter.hits,
+      words_found: @counter.found,
+      autocomplete_hits: @counter.autocomplete
     }
   end
 
