@@ -1,5 +1,5 @@
 class WordsController < ActionController::API
-  before_action :set_counter, :increment_hits
+  before_action :set_counter, only: [:increment_hits, :autocomplete]
 
   def home
     render json: { message: 'welcome',
@@ -28,6 +28,7 @@ class WordsController < ActionController::API
 
   def autocomplete
     matching_words = words.select { |w| w.starts_with?(params[:stem].downcase) }
+    add_to_counter
     render json: {
       words: matching_words[0, MAX_AUTOCOMPLETE_RESULTS],
       count: matching_words.size,
