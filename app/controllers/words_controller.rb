@@ -1,5 +1,5 @@
 class WordsController < ActionController::API
-  before_action :set_counter, only: [:increment_hits, :autocomplete]
+  before_action :set_counter, only: [:home, :increment_hits, :autocomplete]
 
   def home
     render json: { message: 'welcome',
