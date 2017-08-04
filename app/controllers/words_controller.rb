@@ -1,8 +1,9 @@
 class WordsController < ActionController::API
-  before_action :set_counter, only: [:home, :increment_hits, :autocomplete]
+  before_action :set_and_increment_counter
 
   def home
-    render json: { message: 'welcome',
+    render json: {
+      message: 'welcome',
       endpoints: [
         'https://wagon-dictionary.herokuapp.com/:word',
         'https://wagon-dictionary.herokuapp.com/autocomplete/:stem'
@@ -28,7 +29,7 @@ class WordsController < ActionController::API
 
   def autocomplete
     matching_words = words.select { |w| w.starts_with?(params[:stem].downcase) }
-    add_to_counter
+    add_to_autocomplete
     render json: {
       words: matching_words[0, MAX_AUTOCOMPLETE_RESULTS],
       count: matching_words.size,
@@ -42,16 +43,17 @@ class WordsController < ActionController::API
 
   private
 
-  def set_counter
+  def set_and_increment_counter
     @counter = Counter.find(1)
-  end
-
-  def increment_hits
     @counter.increment!(:hits)
   end
 
   def add_to_counter
     @counter.increment!(:found)
+  end
+
+  def add_to_autocomplete
+    @counter.increment!(:autocomplete)
   end
 
   def words
