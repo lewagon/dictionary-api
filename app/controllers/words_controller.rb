@@ -16,7 +16,7 @@ class WordsController < ActionController::API
 
   def query
     query_word = params[:word].downcase
-    word = words.bsearch { |w| query_word <=> w }
+    word = $words.bsearch { |w| query_word <=> w }
     if word
       response = { found: true, word: word, length: word.length }
       add_to_counter
@@ -29,7 +29,8 @@ class WordsController < ActionController::API
   MAX_AUTOCOMPLETE_RESULTS = 15
 
   def autocomplete
-    matching_words = words.select { |w| w.starts_with?(params[:stem].downcase) }
+    stem = params[:stem].downcase
+    matching_words = $words.select { |w| w.starts_with?(stem) }
     add_to_autocomplete
     render json: {
       words: matching_words[0, MAX_AUTOCOMPLETE_RESULTS],
@@ -55,9 +56,5 @@ class WordsController < ActionController::API
 
   def add_to_autocomplete
     @counter.increment!(:autocomplete)
-  end
-
-  def words
-    File.read('words').split("\n")
   end
 end
