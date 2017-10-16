@@ -1,5 +1,5 @@
 class WordsController < ActionController::API
-  before_action :set_and_increment_counter
+  before_action :increment_counter
 
   def home
     render json: {
@@ -8,9 +8,9 @@ class WordsController < ActionController::API
         'https://wagon-dictionary.herokuapp.com/:word',
         'https://wagon-dictionary.herokuapp.com/autocomplete/:stem'
       ],
-      total_api_hits: @counter.hits,
-      words_found: @counter.found,
-      autocomplete_hits: @counter.autocomplete
+      total_api_hits: $counter.hits,
+      words_found: $counter.found,
+      autocomplete_hits: $counter.autocomplete
     }
   end
 
@@ -45,16 +45,15 @@ class WordsController < ActionController::API
 
   private
 
-  def set_and_increment_counter
-    @counter = Counter.find(1)
-    @counter.increment!(:hits)
+  def increment_counter
+    $counter.increment!(:hits)
   end
 
   def add_to_counter
-    @counter.increment!(:found)
+    $counter.increment!(:found)
   end
 
   def add_to_autocomplete
-    @counter.increment!(:autocomplete)
+    $counter.increment!(:autocomplete)
   end
 end
