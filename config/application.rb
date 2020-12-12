@@ -14,7 +14,7 @@ Bundler.require(*Rails.groups)
 
 module WagonDictionary
   class Application < Rails::Application
-    config.load_defaults 5.1
+    config.load_defaults 6.0
     config.api_only = true
 
     config.middleware.insert_before 0, Rack::Cors do

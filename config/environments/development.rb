@@ -16,6 +16,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.active_support.deprecation = :log
+  config.log_level = :debug
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
