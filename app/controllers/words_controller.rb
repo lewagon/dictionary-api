@@ -15,13 +15,12 @@ class WordsController < ActionController::API
   end
 
   def query
-    query_word = params[:word].downcase
-    word = $words.bsearch { |w| query_word <=> w }
-    if word
+    word = params[:word].downcase
+    if $words.include?(word)
       response = { found: true, word: word, length: word.length }
       add_to_counter
     else
-      response = { found: false, word: query_word, error: 'word not found' }
+      response = { found: false, word: word, error: 'word not found' }
     end
     render json: response
   end
