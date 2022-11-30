@@ -100,6 +100,8 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.2)
     nio4r (2.5.8)
+    nokogiri (1.13.7-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.7-x86_64-linux)
       racc (~> 1.4)
     pg (1.4.1)
@@ -161,6 +163,7 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
