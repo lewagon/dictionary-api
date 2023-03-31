@@ -73,7 +73,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     http (5.1.0)
       addressable (~> 2.8)
@@ -83,7 +83,7 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    i18n (1.11.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -99,7 +99,7 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.16.2)
+    minitest (5.17.0)
     net-imap (0.3.2)
       date
       net-protocol
@@ -163,7 +163,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.2.1)
     timeout (0.3.1)
-    tzinfo (2.0.4)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
@@ -171,7 +171,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   x86_64-darwin-21
