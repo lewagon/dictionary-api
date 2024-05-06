@@ -1,19 +1,13 @@
-ruby '3.1.4'
-source 'https://rubygems.org'
+ruby "3.3.0"
+source "https://rubygems.org"
 
-gem 'http'
-gem 'pg'
-gem 'puma'
-gem 'rails', '~> 6.1'
-gem 'rack-cors', :require => 'rack/cors'
+gem "http"
+gem "puma"
+gem "rails", "~> 7.1"
+gem "rack-cors", require: "rack/cors"
+gem "mutex_m"
 
 group :development, :test do
-  gem 'listen'
-end
-
-# https://stackoverflow.com/a/70500221
-group :production do
-  gem 'net-smtp', require: false
-  gem 'net-imap', require: false
-  gem 'net-pop', require: false
+  gem "listen"
+  gem "standardrb"
 end

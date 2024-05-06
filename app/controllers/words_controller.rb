@@ -1,26 +1,26 @@
 class WordsController < ActionController::API
-  before_action :increment_counter
+  before_action :increment_counter, only: [:query, :autocomplete]
 
   def home
     render json: {
-      message: 'welcome',
+      message: "welcome",
       endpoints: [
-        'https://wagon-dictionary.herokuapp.com/:word',
-        'https://wagon-dictionary.herokuapp.com/autocomplete/:stem'
+        "#{ENV["BASE_URL"]}/:word",
+        "#{ENV["BASE_URL"]}/autocomplete/:stem"
       ],
-      total_api_hits: $counter.hits,
-      words_found: $counter.found,
-      autocomplete_hits: $counter.autocomplete
+      total_api_hits: Counter.instance.read(:hits),
+      words_found: Counter.instance.read(:found),
+      autocomplete_hits: Counter.instance.read(:autocomplete)
     }
   end
 
   def query
     word = params[:word].downcase
-    if $words.include?(word)
-      response = { found: true, word: word, length: word.length }
-      add_to_counter
+    if Word.instance.words.include?(word)
+      response = {found: true, word: word, length: word.length}
+      Counter.instance.increment(:found)
     else
-      response = { found: false, word: word, error: 'word not found' }
+      response = {found: false, word: word, error: "word not found"}
     end
     render json: response
   end
@@ -29,8 +29,8 @@ class WordsController < ActionController::API
 
   def autocomplete
     stem = params[:stem].downcase
-    matching_words = $words.select { |w| w.starts_with?(stem) }
-    add_to_autocomplete
+    matching_words = Word.instance.words.select { |w| w.starts_with?(stem) }
+    Counter.instance.increment(:autocomplete)
     render json: {
       words: matching_words[0, MAX_AUTOCOMPLETE_RESULTS],
       count: matching_words.size,
@@ -45,14 +45,6 @@ class WordsController < ActionController::API
   private
 
   def increment_counter
-    $counter.increment!(:hits)
-  end
-
-  def add_to_counter
-    $counter.increment!(:found)
-  end
-
-  def add_to_autocomplete
-    $counter.increment!(:autocomplete)
+    Counter.instance.increment(:hits)
   end
 end
