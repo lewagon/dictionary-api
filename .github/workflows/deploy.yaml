@@ -18,7 +18,7 @@ jobs:
         uses: dokku/github-action@master
         with:
           command: deploy
-          git_remote_url: "ssh://dokku@students.lewagon.engineering/dictionary-api"
+          git_remote_url: "ssh://dokku@students.lewagon.engineering/dictionary"
           git_push_flags: "--force -vvv"
 
           # NOTE(ssaunier): having `id_ed25519`  `id_ed25519.pub` localy:
